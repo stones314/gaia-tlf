@@ -1,17 +1,16 @@
+/* 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*/
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --sec-height: 30.0vh;
+  --sec-width: calc(var(--sec-height));
+  --row: calc(var(--sec-height) / 5);
+  --col: calc(var(--sec-width) / 5.8);
 }
 
 body {
@@ -20,8 +19,43 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer utilities {
+/* @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+} */
+
+.rot0 { transform: rotate(0deg); }
+.rot1 { transform: rotate(60deg); }
+.rot2 { transform: rotate(120deg); }
+.rot3 { transform: rotate(180deg); }
+.rot4 { transform: rotate(240deg); }
+.rot5 { transform: rotate(300deg); }
+
+.sec-slot-0 {
+  position: absolute;
+  left: calc(var(--col)*1);
+  top: calc(var(--row)*8);
 }
+.sec-slot-1 {
+  position: absolute;
+  left: calc(var(--col)*2);
+  top: calc(var(--row)*3.5);
+}
+.sec-slot-2 {
+  position: absolute;
+  left: calc(var(--col)*5);
+  top: calc(var(--row)*11);
+}
+.sec-slot-3 {
+  position: absolute;
+  left: calc(var(--col)*6);
+  top: calc(var(--row)*6.5);
+}
+/*(7, 2), (10, 9.5), (11, 5), (12, 0.5), (15, 8), (16, 3.5)*/
+.sec-slot-4 { position: absolute; left: calc(var(--col)*7); top: calc(var(--row)*2);}
+.sec-slot-5 { position: absolute; left: calc(var(--col)*10); top: calc(var(--row)*9.5);}
+.sec-slot-6 { position: absolute; left: calc(var(--col)*11); top: calc(var(--row)*5);}
+.sec-slot-7 { position: absolute; left: calc(var(--col)*12); top: calc(var(--row)*0.5);}
+.sec-slot-8 { position: absolute; left: calc(var(--col)*15); top: calc(var(--row)*8);}
+.sec-slot-9 { position: absolute; left: calc(var(--col)*16); top: calc(var(--row)*3.5);}
