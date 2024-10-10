@@ -1,29 +1,42 @@
 import Image from 'next/image'
 import { SectorData } from '@/app/lib/type_def'
 
-const SLOT_TO_POS = [
-    {left: 5, top: 10},
-    {left: 10, top: 10},
-    {left: 20, top: 5},
-    {left: 5, top: 5},
-    {left: 5, top: 5},
-    {left: 5, top: 5},
-    {left: 5, top: 5},
-    {left: 5, top: 5},
-    {left: 5, top: 5},
-    {left: 5, top: 10},
-]
-
-export default function SectorView({sector_data} : {sector_data: SectorData}) {
-  const {left, top} = SLOT_TO_POS[sector_data.slot] 
+export function SectorView({sector_data} : {sector_data: SectorData}) {
   return (
-    <div className={"sec-slot-"+sector_data.slot+" rot"+sector_data.rotation}>
+    <div className={"sec sec-slot-"+sector_data.slot+" rot"+sector_data.rotation}>
         <Image
             src={'/map/'+sector_data.id+'.png'}
             alt={'/map/'+sector_data.id+'.png'}
-            width={260}
-            height={282}
+            fill
+            sizes="(max-width: 768px) 30vh, (max-width: 1200px) 30vh, 30vh"
         />
     </div>
   );
 }
+
+export function InnerView({sector_data} : {sector_data: SectorData}) {
+  return (
+    <div className={"inn inn-slot-"+sector_data.slot}>
+        <Image
+            src={'/map/'+sector_data.id+'.png'}
+            alt={'/map/'+sector_data.id+'.png'}
+            fill
+            sizes="(max-width: 768px) 6vh, (max-width: 1200px) 6vh, 6vh"
+        />
+    </div>
+  );
+}
+
+export function OuterView({sector_data} : {sector_data: SectorData}) {
+  return (
+    <div className={"out out-slot-"+sector_data.slot+" rot"+sector_data.rotation}>
+        <Image
+            src={'/map/'+sector_data.id+'.png'}
+            alt={'/map/'+sector_data.id+'.png'}
+            fill
+            sizes="(max-width: 768px) 12vh, (max-width: 1200px) 12vh, 12vh"
+        />
+    </div>
+  );
+}
+

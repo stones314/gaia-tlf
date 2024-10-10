@@ -1,7 +1,7 @@
 import { SectorData, MapData } from '@/app/lib/type_def'
-import SectorView from './sector_view';
+import { SectorView, InnerView, OuterView} from './sector_view';
 
-const getMapId = (c : string) => {
+const getSecId = (c : string) => {
     if (c == "A") return "s01";
     if (c == "B") return "s02";
     if (c == "C") return "s03";
@@ -18,15 +18,105 @@ const getMapId = (c : string) => {
     return "s00"
 }
 
+const getInnerId = (c : string) => {
+    if ( c == "A") return "i1";
+    if ( c == "B") return "i2";
+    if ( c == "C") return "i3";
+    if ( c == "D") return "i4";
+    if ( c == "E") return "i5";
+    if ( c == "F") return "i6";
+    if ( c == "G") return "i7";
+    return "i6.png";
+}
+
+const getOuterId = (c : string) => {
+    if (c == "A") return "11A";
+    if (c == "a") return "11B";
+    if (c == "B") return "12A";
+    if (c == "b") return "12B";
+    if (c == "C") return "13A";
+    if (c == "c") return "13B";
+    if (c == "D") return "14A";
+    if (c == "d") return "14B";
+    if (c == "E") return "15A";
+    if (c == "e") return "15B";
+    if (c == "F") return "16A";
+    if (c == "f") return "16B";
+    if (c == "G") return "17A";
+    if (c == "g") return "17B";
+    if (c == "H") return "18A";
+    if (c == "h") return "18B";
+    return "11A.png"
+}
+
 const numPlayerToNumSec = (np : number) => {
     if( np < 3 ) return 7;
     if ( np == 3) return 9;
     return 10;
 }
+const numPlayerToNumOuter = (np : number) => {
+    if( np < 3 ) return 6;
+    return 8;
+}
+const numPlayerToNumInner = (np : number) => {
+    if( np < 3 ) return 6;
+    if ( np == 3 ) return 8;
+    return 10;
+}
+
+const getOuterSlot = (slot_id : number, np : number) => {
+    if( slot_id == 0 || slot_id == 1) return ""+slot_id;
+    if(np < 3){
+        if( slot_id == 2 ) return "2a";
+        if( slot_id == 3 ) return "3a";
+        if( slot_id == 4 ) return "6";
+        if( slot_id == 5 ) return "7";
+    }
+    if( slot_id == 2 ) return "2b";
+    if(np == 3){
+        if( slot_id == 3 ) return "3b";
+        if( slot_id == 4 ) return "4a";
+        return ""+slot_id;
+    }
+    if(np > 3){
+        if( slot_id == 3 ) return "3c";
+        if( slot_id == 4 ) return "4b";
+        return ""+slot_id;
+    }
+    return "0";
+}
+
+const addRot = (base: number, add: number) => {
+    return ""+(base + add)%360;
+}
+
+const rotIdToDeg = (id: string) => {
+    if (id == "1") return 120;
+    if (id == "2") return 240;
+    return 0;
+}
+
+const getOuterRot = (slot : string, rot_id : string) => {
+    if ( slot == "0")  return addRot( 90, rotIdToDeg(rot_id));
+    if ( slot == "1")  return addRot(150, rotIdToDeg(rot_id));
+    if ( slot == "2a") return addRot(210, rotIdToDeg(rot_id));
+    if ( slot == "2b") return addRot(150, rotIdToDeg(rot_id));
+    if ( slot == "3a") return addRot(270, rotIdToDeg(rot_id));
+    if ( slot == "3b") return addRot(270, rotIdToDeg(rot_id));
+    if ( slot == "3c") return addRot(210, rotIdToDeg(rot_id));
+    if ( slot == "4a") return addRot(210, rotIdToDeg(rot_id));
+    if ( slot == "4b") return addRot(270, rotIdToDeg(rot_id));
+    if ( slot == "5")  return addRot(330, rotIdToDeg(rot_id));
+    if ( slot == "6")  return addRot(330, rotIdToDeg(rot_id));
+    if ( slot == "7")  return addRot( 30, rotIdToDeg(rot_id));
+    return "0";
+}
 
 const parseMapString = (map_str : string) => {
     // make map data stuct from map string
     const np = parseInt(map_str[0]);
+
+    // SECTORS
     const ns = numPlayerToNumSec(np);
     let sectors : SectorData[] = [];
     for (let s = 0; s < ns; s++){
@@ -35,16 +125,50 @@ const parseMapString = (map_str : string) => {
         if (second >= map_str.length) break;
         sectors.push(
             {
-                id: getMapId( map_str[first] ),
-                rotation: parseInt(map_str[second]),
-                slot: s
+                id: getSecId( map_str[first] ),
+                rotation: map_str[second],
+                slot: ""+s
+            }
+        )
+    }
+
+    // INNER
+    const ni = numPlayerToNumInner(np);
+    let inner : SectorData[] = [];
+    for (let s = 0; s < ni; s++){
+        const pos = 1 + ns*2 + s;
+        if (pos >= map_str.length) break;
+        inner.push(
+            {
+                id: getInnerId( map_str[pos] ),
+                rotation: "0",
+                slot: ""+s
+            }
+        )
+    }
+
+    // OUTER
+    const no = numPlayerToNumOuter(np);
+    let outer : SectorData[] = [];
+    for (let s = 0; s < no; s++){
+        const first = 1 + ns*2 + ni + s*2;
+        const second = first+1;
+        if (second >= map_str.length) break;
+        const slot_str = getOuterSlot(s, np);
+        outer.push(
+            {
+                id: getOuterId( map_str[first] ),
+                rotation: getOuterRot(slot_str, map_str[second]),
+                slot: slot_str
             }
         )
     }
 
     let md: MapData = {
         np: np,
-        sectors: sectors
+        sectors: sectors,
+        inner: inner,
+        outer: outer
     }
     return md;
 }
@@ -61,9 +185,34 @@ export default function MapView({map_str} : {map_str: string}) {
             />
         )
     }
+    let inner = []
+    for(const [i, inn] of map_data.inner.entries())
+    {
+        inner.push(
+            <InnerView
+                sector_data={inn}
+                key={i}
+            />
+        )
+    }
+    let outer = []
+    let debug = ""
+    for(const [i, out] of map_data.outer.entries())
+    {
+        outer.push(
+            <OuterView
+                sector_data={out}
+                key={i}
+            />
+        )
+        debug+=out.slot + ", "
+    }
   return (
     <div className='relative bg-white-100 h-800'>
+        {map_data.outer.length + " " + outer.length+" "+ debug}
         {sectors}
+        {inner}
+        {outer}
     </div>
   );
 }
