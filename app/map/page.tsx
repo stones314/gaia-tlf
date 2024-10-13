@@ -1,7 +1,18 @@
+'use client'
+
 import MapView from "./map_view";
+import { randomMap } from "./map_make";
+import React from "react";
 
 export default function Page() {
-    //return <MapView map_str="4A1B2C3D4E5F0G1H2I0J0ABCDEFGEFGB0C0F0G0B0C0F0G0"/>;
-    return <MapView map_str="3A1B2C3D4E5F0G1H2I0ABCDEFGEB0C0F0G0B0C0F0G0"/>;
-    // return <MapView map_str="2A1B2C3D4e5e0e1ABCDEFB0C0F0G0B0C0"/>;
+    const [mapStr, setMapStr] = React.useState(randomMap(4))
+
+    return(
+    <div>
+        <div onClick={() => {setMapStr(randomMap(2))}}>2</div>
+        <div onClick={() => {setMapStr(randomMap(3))}}>3</div>
+        <div onClick={() => {setMapStr(randomMap(4))}}>4</div>
+        <MapView map_str={mapStr}/>
+    </div>
+    );
 }

@@ -1,5 +1,6 @@
 import { SectorData, MapData } from '@/app/lib/type_def'
 import { SectorView, InnerView, OuterView} from './sector_view';
+import { numPlayerToNumInner, numPlayerToNumOuter, numPlayerToNumSec } from './map_make';
 
 const getSecId = (c : string) => {
     if (c == "A") return "s01";
@@ -26,42 +27,27 @@ const getInnerId = (c : string) => {
     if ( c == "E") return "i5";
     if ( c == "F") return "i6";
     if ( c == "G") return "i7";
-    return "i6.png";
+    return "i6";
 }
 
 const getOuterId = (c : string) => {
-    if (c == "A") return "11A";
-    if (c == "a") return "11B";
-    if (c == "B") return "12A";
-    if (c == "b") return "12B";
-    if (c == "C") return "13A";
-    if (c == "c") return "13B";
-    if (c == "D") return "14A";
-    if (c == "d") return "14B";
-    if (c == "E") return "15A";
-    if (c == "e") return "15B";
-    if (c == "F") return "16A";
-    if (c == "f") return "16B";
-    if (c == "G") return "17A";
-    if (c == "g") return "17B";
-    if (c == "H") return "18A";
-    if (c == "h") return "18B";
+    if (c == "A") return "out11A";
+    if (c == "a") return "out11B";
+    if (c == "B") return "out12A";
+    if (c == "b") return "out12B";
+    if (c == "C") return "out13A";
+    if (c == "c") return "out13B";
+    if (c == "D") return "out14A";
+    if (c == "d") return "out14B";
+    if (c == "E") return "out15A";
+    if (c == "e") return "out15B";
+    if (c == "F") return "out16A";
+    if (c == "f") return "out16B";
+    if (c == "G") return "out17A";
+    if (c == "g") return "out17B";
+    if (c == "H") return "out18A";
+    if (c == "h") return "out18B";
     return "11A.png"
-}
-
-const numPlayerToNumSec = (np : number) => {
-    if( np < 3 ) return 7;
-    if ( np == 3) return 9;
-    return 10;
-}
-const numPlayerToNumOuter = (np : number) => {
-    if( np < 3 ) return 6;
-    return 8;
-}
-const numPlayerToNumInner = (np : number) => {
-    if( np < 3 ) return 6;
-    if ( np == 3 ) return 8;
-    return 10;
 }
 
 const getOuterSlot = (slot_id : number, np : number) => {

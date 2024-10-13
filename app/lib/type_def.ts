@@ -10,3 +10,8 @@ export type MapData = {
     inner : SectorData[];
     outer : SectorData[];
 };
+
+export type InnerPos = {
+    ship : number[];
+    other : number[];
+}
