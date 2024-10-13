@@ -20,13 +20,13 @@ const getSecId = (c : string) => {
 }
 
 const getInnerId = (c : string) => {
-    if ( c == "A") return "i1";
-    if ( c == "B") return "i2";
-    if ( c == "C") return "i3";
-    if ( c == "D") return "i4";
-    if ( c == "E") return "i5";
-    if ( c == "F") return "i6";
-    if ( c == "G") return "i7";
+    if ( c == "A") return "inn1";
+    if ( c == "B") return "inn2";
+    if ( c == "C") return "inn3";
+    if ( c == "D") return "inn4";
+    if ( c == "E") return "inn5";
+    if ( c == "F") return "inn6";
+    if ( c == "G") return "inn7";
     return "i6";
 }
 
