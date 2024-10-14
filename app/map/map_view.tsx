@@ -104,7 +104,7 @@ const parseMapString = (map_str : string) => {
 
     // SECTORS
     const ns = numPlayerToNumSec(np);
-    let sectors : SectorData[] = [];
+    const sectors : SectorData[] = [];
     for (let s = 0; s < ns; s++){
         const first = 1 + s*2;
         const second = first+1;
@@ -120,7 +120,7 @@ const parseMapString = (map_str : string) => {
 
     // INNER
     const ni = numPlayerToNumInner(np);
-    let inner : SectorData[] = [];
+    const inner : SectorData[] = [];
     for (let s = 0; s < ni; s++){
         const pos = 1 + ns*2 + s;
         if (pos >= map_str.length) break;
@@ -135,7 +135,7 @@ const parseMapString = (map_str : string) => {
 
     // OUTER
     const no = numPlayerToNumOuter(np);
-    let outer : SectorData[] = [];
+    const outer : SectorData[] = [];
     for (let s = 0; s < no; s++){
         const first = 1 + ns*2 + ni + s*2;
         const second = first+1;
@@ -150,7 +150,7 @@ const parseMapString = (map_str : string) => {
         )
     }
 
-    let md: MapData = {
+    const md: MapData = {
         np: np,
         sectors: sectors,
         inner: inner,
@@ -161,7 +161,7 @@ const parseMapString = (map_str : string) => {
 
 export default function MapView({map_str} : {map_str: string}) {
     const map_data = parseMapString(map_str);
-    let sectors = []
+    const sectors = []
     for(const [i, sec] of map_data.sectors.entries())
     {
         sectors.push(
@@ -171,7 +171,7 @@ export default function MapView({map_str} : {map_str: string}) {
             />
         )
     }
-    let inner = []
+    const inner = []
     for(const [i, inn] of map_data.inner.entries())
     {
         inner.push(
@@ -181,8 +181,8 @@ export default function MapView({map_str} : {map_str: string}) {
             />
         )
     }
-    let outer = []
-    let debug = ""
+    const outer = []
+    //let debug = ""
     for(const [i, out] of map_data.outer.entries())
     {
         outer.push(
@@ -191,11 +191,10 @@ export default function MapView({map_str} : {map_str: string}) {
                 key={i}
             />
         )
-        debug+=out.slot + ", "
+        //debug+=out.slot + ", "
     }
   return (
     <div className='relative bg-white-100 h-800'>
-        {map_data.outer.length + " " + outer.length+" "+ debug}
         {sectors}
         {inner}
         {outer}

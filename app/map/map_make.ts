@@ -80,7 +80,7 @@ export function shuffle<Type>(array : Type[]) {
     while (currentIndex != 0) {
   
       // Pick a remaining element...
-      let randomIndex = randomInt(0,currentIndex);
+      const randomIndex = randomInt(0,currentIndex);
       currentIndex--;
   
       // And swap it with the current element.
@@ -91,9 +91,9 @@ export function shuffle<Type>(array : Type[]) {
 
 const randomSec = (np : number) => {
     const np_id = np-2
-    let core_arr : string[] = SEC_IDS[np_id].slice(0,4);
-    let rest_arr : string[] = SEC_IDS[np_id].slice(4,SEC_IDS[np_id].length);
-    let center_arr : string[] = [];
+    const core_arr : string[] = SEC_IDS[np_id].slice(0,4);
+    const rest_arr : string[] = SEC_IDS[np_id].slice(4,SEC_IDS[np_id].length);
+    const center_arr : string[] = [];
     shuffle(core_arr);
     center_arr.push(core_arr[3]);
     core_arr.pop()
@@ -107,7 +107,7 @@ const randomSec = (np : number) => {
     shuffle(rest_arr);
     let sec_str = ""
     let sec_i = 0;
-    for( const [rest_i, s] of rest_arr.entries()){
+    for( const [, s] of rest_arr.entries()){
         if(sec_i == 3){
             sec_str += center_arr[0] + randomInt(0,6);
             sec_i++;
@@ -126,11 +126,11 @@ const randomInnNp = (np: number, pos_arr : InnerPos[]) => {
     const n_ship = pos_arr[0].ship.length
     const n_othr = pos_arr[0].other.length
     const x = randomInt(0,pos_arr.length)
-    let inn_arr = []
+    const inn_arr = []
     for(let i = 0; i < n_ship+n_othr; ++i){
         inn_arr.push("x");
     }
-    let inn_ship_arr = INNER_SHIP.slice(0, n_ship)
+    const inn_ship_arr = INNER_SHIP.slice(0, n_ship)
     let inn_othr_arr = INNER_OTHER.slice(0, n_othr)
     if (np == 3) inn_othr_arr = INNER_OTHER_3P.slice()
     shuffle(inn_ship_arr)
@@ -150,13 +150,13 @@ const randomInn = (np : number) => {
 }
 const randomOut = (np : number) => {
     const no = numPlayerToNumOuter(np);
-    let out_arr = []
+    const out_arr = []
     for( let i = 0; i < no; i++){
         out_arr.push(OUTER_IDS[i][randomInt(0,2)])
     }
     shuffle(out_arr)
     let out_str = ""
-    for( const [i, s] of out_arr.entries()){
+    for( const [, s] of out_arr.entries()){
         out_str += s + randomInt(0,3);
     }
     return out_str;
