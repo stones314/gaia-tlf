@@ -80,7 +80,7 @@ export function shuffle<Type>(array : Type[]) {
     while (currentIndex != 0) {
   
       // Pick a remaining element...
-      let randomIndex = randomInt(0,currentIndex);
+      const randomIndex = randomInt(0,currentIndex);
       currentIndex--;
   
       // And swap it with the current element.
@@ -92,10 +92,10 @@ export function shuffle<Type>(array : Type[]) {
 const randomSec = (np : number) => {
     // TODO: 1-4 must be in the center!
     const np_id = np-2
-    let sec_arr = SEC_IDS[np_id].slice();
+    const sec_arr = SEC_IDS[np_id].slice();
     shuffle(sec_arr);
     let sec_str = ""
-    for( const [i, s] of sec_arr.entries()){
+    for( const [, s] of sec_arr.entries()){
         sec_str += s + randomInt(0,6);
     }
     return sec_str;
@@ -105,11 +105,11 @@ const randomInnNp = (np: number, pos_arr : InnerPos[]) => {
     const n_ship = pos_arr[0].ship.length
     const n_othr = pos_arr[0].other.length
     const x = randomInt(0,pos_arr.length)
-    let inn_arr = []
+    const inn_arr = []
     for(let i = 0; i < n_ship+n_othr; ++i){
         inn_arr.push("x");
     }
-    let inn_ship_arr = INNER_SHIP.slice(0, n_ship)
+    const inn_ship_arr = INNER_SHIP.slice(0, n_ship)
     let inn_othr_arr = INNER_OTHER.slice(0, n_othr)
     if (np == 3) inn_othr_arr = INNER_OTHER_3P.slice()
     shuffle(inn_ship_arr)
@@ -129,13 +129,13 @@ const randomInn = (np : number) => {
 }
 const randomOut = (np : number) => {
     const no = numPlayerToNumOuter(np);
-    let out_arr = []
+    const out_arr = []
     for( let i = 0; i < no; i++){
         out_arr.push(OUTER_IDS[i][randomInt(0,2)])
     }
     shuffle(out_arr)
     let out_str = ""
-    for( const [i, s] of out_arr.entries()){
+    for( const [, s] of out_arr.entries()){
         out_str += s + randomInt(0,3);
     }
     return out_str;
