@@ -195,7 +195,6 @@ export default function MapView({map_str} : {map_str: string}) {
     }
   return (
     <div className='relative bg-white-100 h-800'>
-        {map_data.outer.length + " " + outer.length+" "+ debug}
         {sectors}
         {inner}
         {outer}
