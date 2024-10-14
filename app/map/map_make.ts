@@ -101,7 +101,7 @@ const randomSec = (np : number) => {
         center_arr.push(core_arr[2]);
         core_arr.pop()
     }
-    for(const [i, e] of core_arr.entries()){
+    for(const [, e] of core_arr.entries()){
         rest_arr.push(e);
     }
     shuffle(rest_arr);
