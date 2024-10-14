@@ -90,13 +90,34 @@ export function shuffle<Type>(array : Type[]) {
 }
 
 const randomSec = (np : number) => {
-    // TODO: 1-4 must be in the center!
     const np_id = np-2
-    const sec_arr = SEC_IDS[np_id].slice();
-    shuffle(sec_arr);
+    const core_arr : string[] = SEC_IDS[np_id].slice(0,4);
+    const rest_arr : string[] = SEC_IDS[np_id].slice(4,SEC_IDS[np_id].length);
+    const center_arr : string[] = [];
+    shuffle(core_arr);
+    center_arr.push(core_arr[3]);
+    core_arr.pop()
+    if(np > 3){
+        center_arr.push(core_arr[2]);
+        core_arr.pop()
+    }
+    for(const [, e] of core_arr.entries()){
+        rest_arr.push(e);
+    }
+    shuffle(rest_arr);
     let sec_str = ""
-    for( const [, s] of sec_arr.entries()){
+    let sec_i = 0;
+    for( const [, s] of rest_arr.entries()){
+        if(sec_i == 3){
+            sec_str += center_arr[0] + randomInt(0,6);
+            sec_i++;
+        }
+        else if (np > 3 && sec_i == 6){
+            sec_str += center_arr[1] + randomInt(0,6);
+            sec_i++;
+        }
         sec_str += s + randomInt(0,6);
+        sec_i++;
     }
     return sec_str;
 }
