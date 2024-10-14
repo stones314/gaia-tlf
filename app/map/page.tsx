@@ -9,9 +9,9 @@ export default function Page() {
 
     return(
     <div>
-        <div onClick={() => {setMapStr(randomMap(2))}}>2</div>
-        <div onClick={() => {setMapStr(randomMap(3))}}>3</div>
-        <div onClick={() => {setMapStr(randomMap(4))}}>4</div>
+        <div className="btn" onClick={() => {setMapStr(randomMap(2))}}>2</div>
+        <div className="btn" onClick={() => {setMapStr(randomMap(3))}}>3</div>
+        <div className="btn" onClick={() => {setMapStr(randomMap(4))}}>4</div>
         <MapView map_str={mapStr}/>
     </div>
     );
