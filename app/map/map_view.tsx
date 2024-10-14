@@ -182,7 +182,7 @@ export default function MapView({map_str} : {map_str: string}) {
         )
     }
     const outer = []
-    let debug = ""
+    //let debug = ""
     for(const [i, out] of map_data.outer.entries())
     {
         outer.push(
@@ -191,7 +191,7 @@ export default function MapView({map_str} : {map_str: string}) {
                 key={i}
             />
         )
-        debug+=out.slot + ", "
+        //debug+=out.slot + ", "
     }
   return (
     <div className='relative bg-white-100 h-800'>
