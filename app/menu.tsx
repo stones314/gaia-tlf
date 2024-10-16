@@ -35,7 +35,7 @@ export default function Menu() {
             <div className="" onClick={() => {setNumP(3)}}> <NumPSelect num_p={3}/></div>
             <div className="" onClick={() => {setNumP(4)}}> <NumPSelect num_p={4}/> </div>
           </div>
-        </div>
+          </div>
       </div>
     </div>
   );

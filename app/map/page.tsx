@@ -9,16 +9,14 @@ import { randomMap } from "./map_make";
 export default function Page() {
     const searchParams = useSearchParams();
     const num_p = parseInt(searchParams.get("np") || "4");
-    const [mapStr, setMapStr] = React.useState(randomMap(num_p))
-    const [usedP, setUsedP] = React.useState(num_p)
-    if(num_p != usedP){
-        setMapStr(randomMap(num_p));
-        setUsedP(num_p);
-    }
+    const [shuffle, setShuffle] = React.useState(0)
+
+    const map_str = randomMap(num_p);
+    
     return(
     <div>
-        <div className="btn" onClick={() => setMapStr(randomMap(num_p))}>Shuffle</div>
-        <MapView map_str={mapStr}/>
+        <div className="btn" onClick={() => setShuffle(1-shuffle)}>Shuffle</div>
+        <MapView map_str={map_str}/>
     </div>
     );
 }

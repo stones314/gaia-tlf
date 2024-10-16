@@ -90,7 +90,7 @@ export function getRandomSetup(np: number)
     const fed = GetRandomElements(BASE_FEDS, 1);
     const boost = GetRandomElements(BOOSTERS, np+3)
     const round_vps = GetRandomElements(ROUND_VPS, 6)
-    const end_vps = GetRandomElements(END_VPS, 3)
+    const end_vps = GetRandomElements(END_VPS, 2)
 
     const setup : SetupData = {
         np: 2,

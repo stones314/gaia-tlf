@@ -54,115 +54,63 @@ export function TechView({setup_data} : {setup_data: SetupData}) {
     )
 }
 
-// class RoundView extends React.Component {
-//     render() {
-//         var rounds = [];
-//         for (const [i, imgRef] of this.props.images.entries()) {
-//             rounds.push(
-//                 <div key={i} className={"rnd"+i}>
-//                     <img
-//                         className="rnd-img"
-//                         src={images[imgRef]}
-//                         alt={imgRef}
-//                     />
-//                 </div>
-//             );
-//         }
-//         return (
-//             <div className="rnd-box">
-//                 {rounds}
-//             </div>
-//         );
-//     }
-// }
+export function RoundView({round_vps} : {round_vps: string[]}) {
+    const rounds = [];
+    for (const [i, end_vp] of round_vps.entries()) {
+        rounds.push(
+            <div key={i} className={"rnd"+i}>
+                <img
+                    className="rnd-img"
+                    src={'/setup/'+end_vp+'.png'}
+                    alt={'/setup/'+end_vp+'.png'}
+                />
+            </div>
+        );
+    }
+    return (
+        <div className="rnd-box">
+            {rounds}
+        </div>
+    );
+}
 
-// class BoosterView extends React.Component {
-//     render() {
-//         var boosts = [];
-//         for (const [i, imgRef] of this.props.images.entries()) {
-//             boosts.push(
-//                 <div className="booster" key={i}>
-//                     <img
-//                         className="booster-img"
-//                         src={images[imgRef]}
-//                         alt={imgRef}
+export function BoosterView({boosters} : {boosters: string[]}) {
+    const boosts = [];
+    for (const [i, boost] of boosters.entries()) {
+        boosts.push(
+            <div className="booster" key={i}>
+                <img
+                    className="booster-img"
+                    src={'/setup/'+boost+'.png'}
+                    alt={'/setup/'+boost+'.png'}
+                />
+            </div>
+        );
+    }
+    return (
+        <div className="booster-box">
+            {boosts}
+        </div>
+    );
+}
 
-//                     />
-//                 </div>
-//             );
-//         }
-//         return (
-//             <div className="booster-box">
-//                 {boosts}
-//             </div>
-//         );
-//     }
-// }
+export function EndVpView({end_vps} : {end_vps: string[]}) {
+    const endVps = [];
+    for (const [i, end_vp] of end_vps.entries()) {
+        endVps.push(
+            <div className="end" key={i}>
+                <img
+                    className="end-img"
+                    src={'/setup/'+end_vp+'.png'}
+                    alt={'/setup/'+end_vp+'.png'}
+                />
+            </div>
+        );
+    }
+    return (
+        <div className="end-box">
+            {endVps}
+        </div>
+    );
+}
 
-// class EndVpView extends React.Component {
-//     render() {
-//         var endVps = [];
-//         for (const [i, imgRef] of this.props.images.entries()) {
-//             endVps.push(
-//                 <div className="end" key={i}>
-//                     <img
-//                         className="end-img"
-//                         src={images[imgRef]}
-//                         alt={imgRef}
-
-//                     />
-//                 </div>
-//             );
-//         }
-//         return (
-//             <div className="end-box">
-//                 {endVps}
-//             </div>
-//         );
-//     }
-// }
-
-// export class SetupString extends React.Component {
-//     render() {
-//         return (
-//             <div className="map-string-box">
-//                 <text className="map-string-txt">
-//                     {this.props.setupString}
-//                 </text>
-//            </div>
-//         );
-//     }
-// }
-
-// class Setup extends React.Component {
-//     render() {
-//         return (
-//             <div className="setup-box">
-//                 <StringInput
-//                     onStringSubmit={(event) => this.props.onMapStringSubmit(event)}
-//                     onStringChange={(value) => this.props.onMapStringChange(value)}
-//                     textString={this.props.mapString}
-//                     errorMsg={this.props.errorMsgMap}
-//                     description="Import map from string:"
-//                 />
-//                 <TechView setup={this.props.setup} />
-//                 <RoundView images={this.props.setup.rounds} />
-//                 <BoosterView images={this.props.setup.boosts} />
-//                 <EndVpView images={this.props.setup.endVps} />
-//                 <SetupString setupString={"Setup: " + this.props.setupString} />
-//                 <StringInput
-//                     onStringSubmit={(event) => this.props.onSetupStringSubmit(event)}
-//                     onStringChange={(value) => this.props.onSetupStringChange(value)}
-//                     textString={this.props.editSetupString}
-//                     errorMsg={this.props.errorMsgSetup}
-//                     description="Import setup from string:"
-//                 />
-//                 <button className="setup-rng-btn" onClick={() => this.props.onClickRandomSetup()}>
-//                     Randomize Setup
-//                 </button>
-//             </div>
-//         );
-//     }
-// }
-
-// export default Setup;
